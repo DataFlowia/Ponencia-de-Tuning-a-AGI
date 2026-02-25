@@ -1,0 +1,1598 @@
+<!DOCTYPE html><html lang="es"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Inteligencia Artificial: De los Orígenes al Futuro Humano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage': '#9ca3af',
+                        'teal': '#0d9488',
+                        'earth': '#a3a3a3',
+                        'deep-blue': '#1e3a8a'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, rgba(30, 58, 138, 0.15) 100%);
+        }
+        
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* 防止触摸设备上的默认行为 */
+            -webkit-user-select: none; /* 防止文本选择 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Enhanced mermaid styling for better contrast */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke-width: 2px;
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .mermaid .nodeLabel {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .citation-link {
+            transition: color 0.2s ease;
+        }
+        .citation-link:hover {
+            color: #0d9488;
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 280px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            margin-left: 320px;
+            padding-right: 20px;
+        }
+        
+        @media (max-width: 1280px) {
+            .toc-fixed {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding-right: 0;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="font-sans text-gray-900 bg-white leading-relaxed">
+
+    <!-- Fixed Table of Contents -->
+    <nav class="toc-fixed">
+      <h3 class="font-serif font-bold text-lg mb-4 text-deep-blue">Índice de Contenidos</h3>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="#modulo1" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Módulo 1: Génesis</a>
+        </li>
+        <li>
+          <a href="#modulo2" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Módulo 2: Vida Cotidiana</a>
+        </li>
+        <li>
+          <a href="#modulo3" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Módulo 3: Afección Laboral</a>
+        </li>
+        <li>
+          <a href="#modulo4" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Módulo 4: Afección en Salud</a>
+        </li>
+        <li>
+          <a href="#modulo5" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Módulo 5: Conductas y Psique</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main-content">
+      <!-- Hero Section -->
+      <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <img src="https://kimi-web-img.moonshot.cn/img/cdn.pixabay.com/136acd2e64e958c6d0f834feaa83291e9e8c4cc4.png" alt="Imagen abstracta de circuitos con aspecto de cerebro que representa la inteligencia artificial" class="absolute inset-0 w-full h-full object-cover opacity-20" size="wallpaper" aspect="wide" color="teal" style="photo" query="inteligencia artificial cerebro circuitos abstracto" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div class="space-y-6">
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-bold text-deep-blue leading-tight">
+              <em class="italic">Inteligencia Artificial:</em>
+              <br/>
+              De los Orígenes al
+              <br/>
+              <span class="text-teal">Futuro Humano</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-700 leading-relaxed">
+              Una relatoría académica en cinco módulos que explora la historia,
+              impacto y desafíos de la IA en el contexto chileno
+            </p>
+            <div class="flex items-center space-x-4 text-sm text-gray-600">
+              <span><i class="fas fa-clock mr-2"></i>5 módulos (90 min cada uno)</span>
+              <span><i class="fas fa-users mr-2"></i>Público heterogéneo</span>
+              <span><i class="fas fa-map-marker-alt mr-2"></i>Chile</span>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div class="bg-white/80 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-200">
+              <h3 class="font-serif text-xl sm:text-2xl font-bold mb-4 text-deep-blue">Pilares Académicos</h3>
+              <ul class="space-y-2 sm:space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <i class="fas fa-microscope text-teal mt-1 mr-3"></i>
+                  <span>Investigación empírica y datos chilenos</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-university text-teal mt-1 mr-3"></i>
+                  <span>Fundamentación en instituciones académicas</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-balance-scale text-teal mt-1 mr-3"></i>
+                  <span>Ética y responsabilidad tecnológica</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-gray-200">
+              <h3 class="font-serif text-xl sm:text-2xl font-bold mb-4 text-deep-blue">Alcance Temático</h3>
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div class="text-center">
+                  <i class="fas fa-briefcase text-2xl text-teal mb-2"></i>
+                  <p class="font-semibold">Trabajo</p>
+                  <p class="text-gray-600">4.7M trabajadores afectables</p>
+                </div>
+                <div class="text-center">
+                  <i class="fas fa-heartbeat text-2xl text-teal mb-2"></i>
+                  <p class="font-semibold">Salud</p>
+                  <p class="text-gray-600">65-75% tareas administrativas</p>
+                </div>
+                <div class="text-center">
+                  <i class="fas fa-brain text-2xl text-teal mb-2"></i>
+                  <p class="font-semibold">Psique</p>
+                  <p class="text-gray-600">57% ansiedad por IA</p>
+                </div>
+                <div class="text-center">
+                  <i class="fas fa-shopping-cart text-2xl text-teal mb-2"></i>
+                  <p class="font-semibold">Vida Cotidiana</p>
+                  <p class="text-gray-600">73% familiaridad</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-20">
+
+        <!-- Module 1: Genesis -->
+        <section id="modulo1" class="space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold text-deep-blue">
+              Módulo 1: Génesis
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Los orígenes y evolución de la inteligencia artificial desde sus fundamentos teóricos hasta el desarrollo nacional chileno
+            </p>
+            <div class="w-24 h-1 bg-teal mx-auto"></div>
+          </div>
+
+          <!-- Timeline Evolution -->
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">Línea de Tiempo: Evolución de la IA</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                timeline
+                title &#34;Evolución de la IA: De Turing a Latam-GPT&#34;
+
+                section &#34;Fundamentos&#34;
+                1950 : &#34;Turing publica &#39;Computing Machinery and Intelligence&#39;&#34;
+                : &#34;Propone el Test de Turing&#34;
+                1956 : &#34;Conferencia de Dartmouth&#34;
+                : &#34;John McCarthy acuña el término &#39;IA&#39;&#34;
+
+                section &#34;Eras del Desarrollo&#34;
+                1956-1974 : &#34;Primera ola: sistemas simbólicos&#34;
+                : &#34;Logic Theorist, ELIZA&#34;
+                1974-1980 : &#34;Primer invierno de la IA&#34;
+                : &#34;Informe Lighthill, recortes de financiamiento&#34;
+                1980-1987 : &#34;Segunda ola: sistemas expertos&#34;
+                : &#34;MYCIN, XCON (ahorro de \$40M anuales)&#34;
+                1987-1993 : &#34;Segundo invierno&#34;
+                : &#34;Colapso del hardware especializado&#34;
+                1993-2012 : &#34;Tercera ola: machine learning&#34;
+                : &#34;Deep Blue derrota a Kasparov&#34;
+                2012-presente : &#34;Era actual: deep learning&#34;
+                : &#34;AlexNet, AlphaGo, GPT-4, Gemini&#34;
+
+                section &#34;Desarrollo Chileno&#34;
+                1980s-1990s : &#34;Investigación académica inicial&#34;
+                : &#34;UChile, PUC, USACH&#34;
+                2021 : &#34;Creación de CENIA&#34;
+                : &#34;Ley 21.431 de Fomento a la Ciencia&#34;
+                2025 : &#34;Lanzamiento de Latam-GPT&#34;
+                : &#34;Primer LLM para contexto latinoamericano&#34;
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                  <i class="fas fa-user-graduate mr-2 text-teal"></i>
+                  Los Fundamentos Teóricos
+                </h3>
+                <div class="space-y-4 text-gray-700">
+                  <p>
+                    En 1950, <strong>Alan Turing</strong> publicó en <em>Mind</em> el artículo fundacional que reformuló la pregunta &#34;¿pueden las máquinas pensar?&#34; como un criterio operacional práctico
+                    <a href="https://www.nationalgeographic.com.es/ciencia/breve-historia-visual-inteligencia-artificial_14419" class="citation-link text-teal hover:underline" target="_blank">[2]</a>.
+                    Turing comprendió que <strong>la inteligencia no es una esencia misteriosa sino un comportamiento observable, medible y, potencialmente, reproducible</strong>.
+                  </p>
+                  <p>
+                    La <strong>Conferencia de Dartmouth en 1956</strong> marcó el nacimiento oficial de la IA, cuando <strong>John McCarthy</strong> propuso el término para describir &#34;la ciencia y la ingeniería de hacer máquinas inteligentes&#34;
+                    <a href="https://www.iberdrola.com/conocenos/nuestro-modelo-innovacion/historia-inteligencia-artificial" class="citation-link text-teal hover:underline" target="_blank">[3]</a>.
+                    Los organizadores estimaron que diez personas trabajando durante dos meses harían avances significativos en problemas como el uso del lenguaje y la abstracción numérica.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                  <i class="fas fa-snowflake mr-2 text-teal"></i>
+                  Los Inviernos de la IA
+                </h3>
+                <div class="space-y-4 text-gray-700">
+                  <p>
+                    El <strong>&#34;primer invierno&#34;</strong> (1974-1980) fue desencadenado por el <strong>informe Lighthill</strong>, que criticó la falta de resultados prácticos y llevó a recortes significativos de financiamiento
+                    <a href="https://posgradosalamanca.lat/blog/evolucion-de-la-inteligencia-artificial/" class="citation-link text-teal hover:underline" target="_blank">[1]</a>.
+                  </p>
+                  <p>
+                    El <strong>&#34;segundo invierno&#34;</strong> (1987-1993) se produjo por el colapso del mercado de hardware especializado y la fragilidad de los sistemas expertos, que funcionaban bien en dominios específicos pero fallaban catastróficamente ante situaciones no anticipadas
+                    <a href="https://www.ibm.com/es-es/think/topics/history-of-artificial-intelligence" class="citation-link text-teal hover:underline" target="_blank">[22]</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                  <i class="fas fa-flag mr-2 text-teal"></i>
+                  Desarrollo de IA en Chile
+                </h3>
+                <div class="space-y-4 text-gray-700">
+                  <p>
+                    La investigación en IA en Chile tiene raíces en las décadas de 1980 y 1990, cuando grupos académicos en la <strong>Universidad de Chile</strong>, la <strong>Pontificia Universidad Católica</strong> y la <strong>Universidad de Santiago</strong> comenzaron a explorar aplicaciones de sistemas expertos y machine learning.
+                  </p>
+                  <p>
+                    El año <strong>2021</strong> marcó un hito institucional con la creación del <strong>Centro Nacional de Inteligencia Artificial (CENIA)</strong> mediante la Ley 21.431
+                    <a href="https://www.minciencia.gob.cl/areas/inteligencia-artificial/Inteligencia-Artificial/" class="citation-link text-teal hover:underline" target="_blank">[19]</a>.
+                    En febrero de 2025, CENIA lideró el lanzamiento de <strong>Latam-GPT</strong>, el primer modelo de lenguaje grande de código abierto desarrollado específicamente para el contexto latinoamericano
+                    <a href="https://latinamericareports.com/latam-gpt-chile-leads-launch-of-first-artificial-intelligence-system-developed-in-latin-america/13548/" class="citation-link text-teal hover:underline" target="_blank">[42]</a>.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-teal/10 border border-teal/20 rounded-lg p-6">
+                <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">Datos Clave del Marco Institucional Chileno</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-teal">73%</div>
+                    <div class="text-gray-600">Familiaridad con IA</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-teal">70%</div>
+                    <div class="text-gray-600">Consideran IA útil</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-teal">15%</div>
+                    <div class="text-gray-600">Uso regular en trabajo</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-teal">22%</div>
+                    <div class="text-gray-600">Desconfianza principal</div>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">
+                  Fuente: Encuesta Chile Nos Habla 2024, Universidad San Sebastián
+                  <a href="https://www.uss.cl/noticias/chile-nos-habla-inteligencia-artificial/" class="citation-link text-teal hover:underline" target="_blank">[118]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module 2: Daily Life -->
+        <section id="modulo2" class="space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold text-deep-blue">
+              Módulo 2: Vida Cotidiana
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              La IA invisible que nos rodea: desde el comercio electrónico hasta el hogar conectado
+            </p>
+            <div class="w-24 h-1 bg-teal mx-auto"></div>
+          </div>
+
+          <!-- E-commerce Transformation -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-shopping-cart mr-3 text-teal"></i>
+                La Revolución del Comercio Electrónico
+              </h3>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-deep-blue">Crecimiento Exponencial</h4>
+                  <p class="text-gray-700 text-sm mb-3">
+                    El sector proyecta un <strong>crecimiento promedio anual del 13,2% entre 2024 y 2029</strong>, impulsado por la expansión del consumo digital
+                    <a href="https://logistica360chile.cl/la-inteligencia-artificial-impulsa-el-nuevo-comercio-electronico/" class="citation-link text-teal hover:underline" target="_blank">[89]</a>.
+                  </p>
+                  <div class="text-2xl font-bold text-teal">$4,5 billones</div>
+                  <div class="text-xs text-gray-500">Ventas online primer semestre 2025</div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-deep-blue">Transformación Conversacional</h4>
+                  <p class="text-gray-700 text-sm mb-3">
+                    El cambio más significativo es el <strong>desplazamiento de búsqueda tradicional a modelos conversacionales</strong>, donde asistentes como ChatGPT actúan como &#34;nuevos intermediarios de compra&#34;
+                    <a href="https://www.24horas.cl/tendencias/tecnologia-y-ciencias/la-ia-redefine-el-comercio-digital-claves-que-dejo-el-ecommerce" class="citation-link text-teal hover:underline" target="_blank">[91]</a>.
+                  </p>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-deep-blue">Personalización Algorítmica</h4>
+                  <p class="text-gray-700 text-sm">
+                    Sistemas de <strong>recomendación predictiva</strong> y <strong>precios dinámicos</strong> que ajustan en tiempo real basándose en comportamiento del usuario, demanda e inventario.
+                  </p>
+                </div>
+              </div>
+
+              <blockquote class="border-l-4 border-teal pl-6 italic text-lg text-gray-700 bg-gray-50 p-6 rounded-r-lg">
+                &#34;Estamos viviendo una revolución que cambia completamente la forma en que descubrimos, compramos y entregamos productos. La IA ya no es promesa, es presente, y nos obliga a repensar cómo usamos los datos, cómo construimos confianza y cómo ponemos al cliente en el centro.&#34;
+                <footer class="text-sm text-gray-500 mt-2">
+                  — <strong>Carlos Honorato</strong>, CEO de Orión
+                  <a href="https://www.tabulado.net/la-ia-redefine-el-comercio-digital-en-el-ecommerce-innovation-summit-2025/" class="citation-link text-teal hover:underline" target="_blank">[90]</a>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Agriculture and IoT -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-seedling mr-2 text-teal"></i>
+                Agricultura de Precisión
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p>
+                  La <strong>agricultura de precisión</strong> utiliza IA para monitorear y gestionar cultivos a escala de planta individual. <strong>Drones equipados con cámaras multiespectrales</strong> detectan estrés hídrico, deficiencias nutricionales y signos tempranos de enfermedad.
+                </p>
+                <p>
+                  Los <strong>sensores IoT</strong> recolectan datos continuos de temperatura, humedad y radiación solar, alimentando modelos de machine learning que optimizan el riego y predicen el desarrollo de cultivos.
+                </p>
+                <div class="bg-teal/10 rounded-lg p-4">
+                  <div class="text-lg font-bold text-teal mb-1">20-40%</div>
+                  <div class="text-sm text-gray-600">Reducción de consumo de agua en irrigación manteniendo rendimientos</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-home mr-2 text-teal"></i>
+                El Hogar Conectado
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p>
+                  La <strong>interacción conversacional</strong> con asistentes virtuales está ampliamente extendida en Chile, aunque la penetración de altavoces inteligentes permanece limitada por precios relativamente elevados y preocupaciones de privacidad.
+                </p>
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-orange-800 mb-2">Desafío de Fragmentación</h4>
+                  <p class="text-orange-700 text-sm">
+                    La falta de un estándar dominante de comunicación entre dispositivos obliga a los consumidores a elegir entre ecosistemas cerrados o configurar integraciones complejas que frecuentemente fallan.
+                  </p>
+                </div>
+                <p class="text-sm text-gray-600">
+                  La tensión entre <strong>conveniencia y privacidad</strong> constituye uno de los dilemas centrales que la ciudadanía chilena deberá negociar en los próximos años.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module 3: Labor Impact -->
+        <section id="modulo3" class="space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold text-deep-blue">
+              Módulo 3: Afección en lo Laboral
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Transformación, disrupción y oportunidad en el mercado laboral chileno
+            </p>
+            <div class="w-24 h-1 bg-teal mx-auto"></div>
+          </div>
+
+          <!-- Labor Statistics -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-chart-bar mr-3 text-teal"></i>
+                Panorama Estadístico: El Impacto Laboral en Números
+              </h3>
+
+              <div class="grid grid-cols-1 gap-6 mb-8">
+                <div class="space-y-4">
+                  <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-red-800">Desplazamiento Laboral</h4>
+                    <div class="text-3xl font-bold text-red-600 mb-2">49%</div>
+                    <p class="text-red-700 text-sm">
+                      De las empresas con implementación de IA ha experimentado desplazamiento laboral directamente atribuible a estas tecnologías
+                      <a href="https://www.esghoy.cl/chile-lidera-adopcion-inteligencia-artificial-impacto-laboral/" class="citation-link text-red-600 hover:underline" target="_blank">[110]</a>.
+                    </p>
+                    <p class="text-xs text-red-600 mt-2">
+                      <strong>Nota:</strong> Este porcentaje es muy superior al de China (11%), indicando una transformación más acelerada en Chile.
+                    </p>
+                  </div>
+
+                  <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-green-800">Creación de Empleo</h4>
+                    <div class="text-3xl font-bold text-green-600 mb-2">25%</div>
+                    <p class="text-green-700 text-sm">
+                      De estas empresas ha creado nuevos puestos de trabajo específicamente vinculados a la inteligencia artificial.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Employment Impact Table -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm border-collapse border border-gray-300">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Indicador de Impacto Laboral</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Chile</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Latinoamérica</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Global</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Empresas con implementación avanzada de IA</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-teal">33%</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Trabajadores que usan IA regularmente</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-orange-600">15%</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">26%</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">29%</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Confianza en capacidad de uso de IA</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">74%</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">69%</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Contribución a productividad percibida</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">63%</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">63%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-xs text-gray-500 mt-2">
+                Fuente: Informe Deel-Workia 2025, Randstad 2026
+                <a href="https://www.randstad.cl/mercado-laboral/gestion-de-personas/solo-el-15-de-los-trabajadores-utiliza-la-ia-de-forma-regular/" class="citation-link text-teal hover:underline" target="_blank">[175]</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- CENIA-Stanford Study -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-rocket mr-3 text-teal"></i>
+                El Estudio CENIA-Stanford: La Oportunidad de Aceleración
+              </h3>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                  <h4 class="font-semibold text-lg text-deep-blue">Metodología Pionera</h4>
+                  <p class="text-gray-700">
+                    El estudio analizó las <strong>100 ocupaciones más frecuentes en Chile</strong> (62% de la fuerza laboral), descomponiendo cada empleo en sus tareas constitutivas —más de 200,000 tareas en total— para evaluar el potencial de aceleración mediante IA generativa
+                    <a href="https://media-front.elmostrador.cl/2024/12/Estudio-AI-v3.pdf" class="citation-link text-teal hover:underline" target="_blank">[143]</a>.
+                  </p>
+
+                  <div class="bg-teal/10 rounded-lg p-4">
+                    <h5 class="font-semibold text-teal mb-2">Concepto de &#34;Aceleración&#34;</h5>
+                    <p class="text-sm text-gray-700">
+                      Capacidad de reducir el tiempo de ejecución de una tarea en al menos un 50% sin disminuir la calidad del resultado, utilizando herramientas de IA generativa disponibles en el mercado.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <h4 class="font-semibold text-lg text-deep-blue">Hallazgos Principales</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between bg-green-50 rounded-lg p-3">
+                      <span class="text-green-800 font-medium">Oportunidad de Aceleración promedio</span>
+                      <span class="text-2xl font-bold text-green-600">48%</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-blue-50 rounded-lg p-3">
+                      <span class="text-blue-800 font-medium">Trabajadores afectables</span>
+                      <span class="text-2xl font-bold text-blue-600">4,7M</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-purple-50 rounded-lg p-3">
+                      <span class="text-purple-800 font-medium">Valor económico potencial</span>
+                      <span class="text-2xl font-bold text-purple-600">12% PIB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- High-Impact Occupations Table -->
+              <div class="overflow-x-auto mb-6">
+                <table class="w-full text-sm border-collapse border border-gray-300">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Ocupación</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Oportunidad de Aceleración</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Trabajadores (FTE)</th>
+                      <th class="border border-gray-300 px-4 py-3 text-center font-semibold">Valor potencial anual</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Desarrolladores de software</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">0,87 (87%)</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">~150.000</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Especialistas en políticas públicas</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">0,84 (84%)</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">~80.000</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Analistas de datos</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">0,80 (80%)</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">~120.000</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">—</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Contadores</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">0,70 (70%)</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">93.617</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-blue-600">US$1.700M</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Docentes de educación básica</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-green-600">0,68 (68%)</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center">113.408</td>
+                      <td class="border border-gray-300 px-4 py-3 text-center font-bold text-blue-600">US$1.200M</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <blockquote class="border-l-4 border-teal pl-6 italic text-lg text-gray-700 bg-gray-50 p-6 rounded-r-lg">
+                &#34;No se trata de reemplazar personas, sino de empoderarlas con herramientas cognitivas que contribuirán al futuro de Chile.&#34;
+                <footer class="text-sm text-gray-500 mt-2">
+                  — Mensaje central del estudio CENIA-Stanford
+                  <a href="https://impact.stanford.edu/article/deep-dive-impact-generative-ai-work-chile" class="citation-link text-teal hover:underline" target="_blank">[200]</a>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Sector Transformations -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-hard-hat mr-2 text-teal"></i>
+                Minería: El Dilema Productividad vs. Empleo
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  La minería chilena enfrenta una <strong>transformación sin precedentes</strong> con proyecciones de pérdida del <strong>28% de empleos para 2030</strong>
+                  <a href="https://pulitzercenter.org/resource/how-we-investigated-backyard-ai-spain-chile-and-mexico" class="citation-link text-teal hover:underline" target="_blank">[63]</a>.
+                </p>
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                  <h4 class="font-semibold text-orange-800 text-sm mb-1">Caso Litoralpress-Simbiu</h4>
+                  <p class="text-orange-700 text-xs">
+                    Sindicato reportó reducción de planta de 63 a 36 trabajadores (43%) entre 2017-2023, atribuida mayoritariamente a automatización y IA
+                    <a href="https://www.laizquierdadiario.cl/Sindicato-Litoralpress-Simbiu-enfrenta-despidos-por-avance-de-la-IA-y-reemplazos-fuera-del-pais" class="citation-link text-orange-600 hover:underline" target="_blank">[191]</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-graduation-cap mr-2 text-teal"></i>
+                Educación: Liberando Tiempo para Docencia
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  Entre el <strong>65% y el 75% de las tareas administrativas</strong> docentes son susceptibles de automatización, liberando <strong>15-36 horas semanales</strong> para atención directa a estudiantes
+                  <a href="https://impact.stanford.edu/article/deep-dive-impact-generative-ai-work-chile" class="citation-link text-teal hover:underline" target="_blank">[200]</a>.
+                </p>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                  <div class="text-xl font-bold text-green-600 mb-1">75%</div>
+                  <div class="text-green-700 text-xs">Oportunidad de aceleración para docentes de enseñanza media</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-store mr-2 text-teal"></i>
+                Retail y Servicios
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  El retail enfrenta transformación con <strong>oportunidad de aceleración de 0,70</strong> para comerciantes y operadores de almacenes (83,806 puestos de trabajo)
+                  <a href="https://media-front.elmostrador.cl/2024/12/Estudio-AI-v3.pdf" class="citation-link text-teal hover:underline" target="_blank">[222]</a>.
+                </p>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <div class="text-xs text-blue-700">
+                    Investigación de Fundación SOL documenta temor a pérdida de empleo y aumento significativo en ritmo de trabajo en fuerza de ventas
+                    <a href="https://resumen.cl/articulos/karina-narbona-investigadora-de-fundacion-sol-sobre-implementacion-de-ia-en-trabajos-se-estima-que-cerca-del-40-de-la-fuerza-laboral-debera-reconvertirse-o-reorientar-sus-tareas" class="citation-link text-blue-600 hover:underline" target="_blank">[213]</a>.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module 4: Health -->
+        <section id="modulo4" class="space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold text-deep-blue">
+              Módulo 4: Afección en Salud
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              Revolución diagnóstica, ética clínica y el futuro de la profesión médica
+            </p>
+            <div class="w-24 h-1 bg-teal mx-auto"></div>
+          </div>
+
+          <!-- Clinical Case Study -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-hospital mr-3 text-teal"></i>
+                Caso Clínico: Clínica Alemana de Santiago
+              </h3>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                  <h4 class="font-semibold text-lg text-deep-blue">&#34;AlemanaGPT&#34;: Innovación en IA Clínica</h4>
+                  <p class="text-gray-700">
+                    El <strong>Dr. Alejandro Mauro, Jefe de Transformación Digital</strong>, lideró el desarrollo de <strong>&#34;AlemanaGPT&#34;</strong>, un sistema basado en <strong>Azure OpenAI</strong> que representa una de las integraciones más avanzadas de IA generativa con historia clínica electrónica en América Latina
+                    <a href="https://www.icthealth.org/news/we-dont-start-with-ai-but-with-clinical-problems-to-solve" class="citation-link text-teal hover:underline" target="_blank">[300]</a>.
+                  </p>
+
+                  <div class="bg-gray-50 rounded-lg p-4">
+                    <h5 class="font-semibold text-gray-800 mb-2">Infraestructura de Seguridad</h5>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                      <li>• Arquitectura de nube privada en Microsoft Azure</li>
+                      <li>• Cumplimiento con requisitos regulatorios chilenos e internacionales</li>
+                      <li>• Anonimización para procesos de investigación</li>
+                      <li>• Trazabilidad completa de accesos</li>
+                      <li>• Mecanismos de revocación de consentimiento</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <h4 class="font-semibold text-lg text-deep-blue">Funcionalidades Implementadas</h4>
+                  <div class="space-y-3">
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h5 class="font-semibold text-blue-800 mb-2">Resumen Inteligente</h5>
+                      <p class="text-blue-700 text-sm">Procesa historias de pacientes extensas y genera síntesis estructuradas adaptadas por especialidad médica</p>
+                      <div class="mt-2 text-xs text-blue-600">Reducción del 60% en tiempo de revisión de documentación</div>
+                    </div>
+
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <h5 class="font-semibold text-green-800 mb-2">Generación de Informes</h5>
+                      <p class="text-green-700 text-sm">Asiste a médicos en la redacción de documentación médica mediante plantillas inteligentes y sugerencias contextuales</p>
+                      <div class="mt-2 text-xs text-green-600">Reducción del 60% en tiempo dedicado a documentación rutinaria</div>
+                    </div>
+
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                      <h5 class="font-semibold text-purple-800 mb-2">Mejora de Comunicación</h5>
+                      <p class="text-purple-700 text-sm">Genera versiones simplificadas de informes médicos, instrucciones post-consulta y material educativo adaptado</p>
+                      <div class="mt-2 text-xs text-purple-600">Mejora en comprensión y adherencia terapéutica</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <blockquote class="border-l-4 border-teal pl-6 italic text-lg text-gray-700 bg-gray-50 p-6 rounded-r-lg">
+                &#34;No empezamos por la IA, sino por los problemas clínicos que tenemos que resolver. La implementación fue deliberadamente gradual, priorizando la construcción de una infraestructura de gobernanza sólida antes de la escalada operativa.&#34;
+                <footer class="text-sm text-gray-500 mt-2">
+                  — <strong>Dr. Alejandro Mauro</strong>, Jefe de Transformación Digital, Clínica Alemana
+                  <a href="https://www.icthealth.org/news/we-dont-start-with-ai-but-with-clinical-problems-to-solve" class="citation-link text-teal hover:underline" target="_blank">[300]</a>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Medical Imaging and Diagnostics -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-eye mr-2 text-teal"></i>
+                Diagnóstico por Imagen
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  El <strong>Primer Curso de Inteligencia Artificial Aplicada a la Radiología</strong> (mayo de 2025) en la Universidad de Chile marca un hito en la formación de especialistas latinoamericanos
+                  <a href="https://www.radiologiachile.cl/primer-curso-de-inteligencia-artificial-aplicada-a-la-radiologia/" class="citation-link text-teal hover:underline" target="_blank">[radiologiaUCH]</a>.
+                </p>
+
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-green-800 mb-2">Sistema DART</h4>
+                  <p class="text-green-700 text-sm mb-2">
+                    <strong>DART (Diabetic Retinopathy Artificial Intelligence Retinal Testing)</strong> de TeleDx ha procesado más de 350,000 exámenes desde 2018
+                    <a href="https://media.tghn.org/medialibrary/2023/08/DT1_CLIAS_EN-doi.pdf" class="citation-link text-green-600 hover:underline" target="_blank">[298]</a>.
+                  </p>
+                  <div class="text-xl font-bold text-green-600 mb-1">94%</div>
+                  <div class="text-green-700 text-xs">Precisión en detección de retinopatía diabética, comparable a especialistas en retina</div>
+                </div>
+
+                <p class="text-sm">
+                  La detección temprana permite <strong>intervenciones localizadas y oportunas</strong>, reduciendo el uso de pesticidas y minimizando pérdidas de cosecha, representando una <strong>ventaja competitiva significativa</strong> para exportadores chilenos de frutas.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-stethoscope mr-2 text-teal"></i>
+                Telemedicina y Atención Primaria
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  La empresa <strong>Mediclic</strong> ha desarrollado <strong>&#34;Cecilia&#34;</strong>, el primer triage médico de IA en Latinoamérica, junto con asistentes especializados para gestión emocional, nutrición y coaching de estilo de vida
+                  <a href="https://insurtechile.org/salud-digital-2025-un-futuro-de-precision-automatizacion-y-nuevos-desafios/" class="citation-link text-teal hover:underline" target="_blank">[288]</a>.
+                </p>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">Monitoreo Continuo</h4>
+                  <p class="text-blue-700 text-sm">
+                    Plataformas como <strong>Medismart</strong> incorporan &#34;Smartcheck con AI&#34; para <strong>seguimiento remoto de pacientes crónicos</strong>, permitiendo intervenciones preventivas antes de eventos agudos que requieran hospitalización.
+                  </p>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-orange-800 mb-2">Desafío de Equidad</h4>
+                  <p class="text-orange-700 text-sm">
+                    La implementación debe garantizar acceso en zonas rurales y marginadas urbanas para evitar la <strong>amplificación de desigualdades sanitarias existentes</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ethics and Future of Medicine -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-balance-scale mr-3 text-teal"></i>
+                Ética, Responsabilidad y el Futuro de la Profesión Médica
+              </h3>
+
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-6">
+                  <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-red-800">Principio de No Maleficencia</h4>
+                    <p class="text-red-700 text-sm">
+                      La incorporación de IA en procesos clínicos de alta consecuencia plantea interrogantes éticos complejos. El principio de &#34;primero, no dañar&#34; requiere reinterpretación en contextos donde la decisión de <strong>no usar IA disponible podría constituir igualmente un daño</strong>.
+                    </p>
+                  </div>
+
+                  <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-orange-800">Responsabilidad Legal</h4>
+                    <p class="text-orange-700 text-sm">
+                      ¿Quién asume la responsabilidad cuando un sistema de IA recomienda un tratamiento inapropiado? El <strong>vacío normativo</strong> respecto a errores algorítmicos constituye uno de los desafíos más críticos para la implementación segura de estas tecnologías.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-blue-800">Redefinición de Competencias</h4>
+                    <p class="text-blue-700 text-sm">
+                      La IA está desplazando el énfasis desde la <strong>memorización de vastos cuerpos de conocimiento hacia el juicio crítico, la empatía y la capacidad de integrar información de múltiples fuentes</strong>. Esta transformación redefine las competencias fundamentales de la profesión médica.
+                    </p>
+                  </div>
+
+                  <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-lg mb-3 text-green-800">Formación Médica Continua</h4>
+                    <p class="text-green-700 text-sm">
+                      La inteligencia artificial debe incorporarse como <strong>competencia transversal obligatoria</strong> en la formación médica continua. Las facultades de medicina chilenas están comenzando a implementar estos contenidos, con programas pioneros en la Universidad de Chile y la Pontificia Universidad Católica.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-teal/10 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-deep-blue">Principios para el Futuro de la IA en Salud</h4>
+                <ul class="space-y-2 text-gray-700">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-teal mt-1 mr-2"></i>
+                    <span><strong>Asistencia, no reemplazo:</strong> La IA debe potenciar las capacidades humanas, no sustituir la responsabilidad clínica</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-teal mt-1 mr-2"></i>
+                    <span><strong>Transparencia y explicabilidad:</strong> Los sistemas deben ser auditables y sus decisiones comprensibles</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-teal mt-1 mr-2"></i>
+                    <span><strong>Ética y equidad:</strong> La implementación debe reducir, no amplificar, las desigualdades sanitarias existentes</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-teal mt-1 mr-2"></i>
+                    <span><strong>Formación continua:</strong> Los profesionales deben desarrollar competencias para usar, supervisar y evaluar críticamente las herramientas de IA</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module 5: Psychology -->
+        <section id="modulo5" class="space-y-12">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold text-deep-blue">
+              Módulo 5: Conductas y Psique Humanas
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              El impacto existencial de la IA en la psicología, conducta y bienestar psicológico
+            </p>
+            <div class="w-24 h-1 bg-teal mx-auto"></div>
+          </div>
+
+          <!-- Psychological Impact Study -->
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+            <div class="p-8">
+              <h3 class="font-serif text-2xl font-bold mb-6 text-deep-blue">
+                <i class="fas fa-brain mr-3 text-teal"></i>
+                La Psicología de la Adopción: Miedos, Fantasías y Realidades
+              </h3>
+
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-red-800">Ansiedad e Incertidumbre</h4>
+                  <div class="text-3xl font-bold text-red-600 mb-2">57%</div>
+                  <p class="text-red-700 text-sm">
+                    De la población chilena experimenta ansiedad o incertidumbre ante la posibilidad de que la IA alcance niveles de conciencia impredecibles
+                    <a href="https://postgrados.uandes.cl/blog/noticias/inteligencia-artificial-y-ansiedad-como-afecta-a-la-poblacion-chilena/" class="citation-link text-red-600 hover:underline" target="_blank">[338]</a>.
+                  </p>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-orange-800">Desconfianza Activa</h4>
+                  <p class="text-orange-700 text-sm">
+                    La <strong>&#34;desconfianza activa&#34;</strong> caracteriza la respuesta chilena: mientras una mayoría expresa rechazo conceptual hacia la IA, la misma población utiliza cotidianamente servicios que dependen de algoritmos de aprendizaje automático.
+                  </p>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-800">Diferencias Generacionales</h4>
+                  <p class="text-blue-700 text-sm">
+                    Los <strong>nativos digitales</strong> exhiben mayor comodidad técnica pero también mayores niveles de estrés asociado al uso intensivo de herramientas generativas, mientras los <strong>migrantes tecnológicos</strong> mantienen mejor distancia crítica.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Cognitive Alterations -->
+              <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                <h4 class="font-semibold text-lg mb-4 text-deep-blue">Alteraciones Cognitivas y Conductuales</h4>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div class="space-y-4">
+                    <h5 class="font-semibold text-gray-800">Externalización Cognitiva</h5>
+                    <p class="text-gray-700 text-sm">
+                      La <strong>delegación sistemática de funciones mentales a dispositivos</strong> —GPS para navegar, motores de búsqueda para recordar información, asistentes virtuales para organizar agendas— está produciendo <strong>redistribución funcional entre cerebro biológico y &#34;cerebro extendido&#34; tecnológico</strong>.
+                    </p>
+
+                    <h5 class="font-semibold text-gray-800">Efectos en Toma de Decisiones</h5>
+                    <p class="text-gray-700 text-sm">
+                      Investigación de la PUCV ha constatado que el uso intensivo de herramientas generativas para actividades que requieren razonamiento de orden superior se asocia con <strong>incrementos significativos en la carga cognitiva percibida</strong> y niveles de estrés académico
+                      <a href="https://www.pucv.cl/pucv/investigacion-analiza-los-efectos-psicoeducativos-de-la-ia-en-estudiantes-universitarios/" class="citation-link text-teal hover:underline" target="_blank">[361]</a>.
+                    </p>
+                  </div>
+
+                  <div class="space-y-4">
+                    <h5 class="font-semibold text-gray-800">Sesgo de Automatización</h5>
+                    <p class="text-gray-700 text-sm">
+                      El fenómeno del <strong>&#34;sesgo de automatización&#34;</strong> —tendencia a aceptar recomendaciones algorítmicas incluso cuando contradicen el propio juicio— ha sido documentado en poblaciones hispanohablantes que incluyen participantes chilenos, con un <strong>16,7% validando evaluaciones erróneas propuestas por IA</strong>
+                      <a href="https://cognitiveresearchjournal.springeropen.com/counter/pdf/10.1186/s41235-023-00529-3?utm_source=consensus" class="citation-link text-teal hover:underline" target="_blank">[379]</a>.
+                    </p>
+
+                    <h5 class="font-semibold text-gray-800">Adicción y Dependencia</h5>
+                    <p class="text-gray-700 text-sm">
+                      El <strong>diseño de sistemas de IA con mecanismos de refuerzo intermitente</strong> que maximizan el engagement genera riesgo de <strong>formación de vínculos de dependencia con sistemas no humanos</strong>, particularmente preocupante en chatbots conversacionales.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mental Health Risks Table -->
+              <div class="overflow-x-auto mb-6">
+                <table class="w-full text-sm border-collapse border border-gray-300">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Riesgo Psicológico</th>
+                      <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Descripción</th>
+                      <th class="border border-gray-300 px-4 py-3 text-left font-semibold">Población más Afectada</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Aislamiento social</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Sustitución progresiva de interacciones humanas por interacciones mediadas algorítmicamente</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Adultos jóvenes, trabajadores remotos</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Ansiedad por relevancia</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Presión por mantener productividad creativa en competencia con sistemas que generan contenido instantáneamente</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Profesionales creativos, creadores de contenido</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Despersonalización</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Dificultad para distinguir entre producción humana y máquinal</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Usuarios intensivos de generativos</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                      <td class="border border-gray-300 px-4 py-3 font-medium">Alienación</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Sensación de pérdida de control sobre los procesos que configuran nuestra realidad inmediata</td>
+                      <td class="border border-gray-300 px-4 py-3 text-sm">Población general expuesta a algoritmos opacos</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <p class="text-xs text-gray-500 mt-2">
+                Fuente: Centro EEPSI, especializado en psicología y nuevas tecnologías
+                <a href="https://eepsi.cl/el-impacto-psicologico-de-la-ia-generativa-riesgos-y-beneficios-que-debes-conocer/" class="citation-link text-teal hover:underline" target="_blank">[366]</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- AI in Psychological Practice -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-comments mr-2 text-teal"></i>
+                IA en la Práctica Psicológica
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  La <strong>Sociedad Chilena de Ciberpsicología (SOCHICIP)</strong> ha asumido el desafío de desarrollar la ciberpsicología como disciplina científica aplicada al contexto chileno
+                  <a href="https://sochicip.cl/nosotros/" class="citation-link text-teal hover:underline" target="_blank">[358]</a>.
+                </p>
+
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-purple-800 mb-2">Chatbots Terapéuticos</h4>
+                  <p class="text-purple-700 text-sm">
+                    Plataformas como <strong>Mypsi</strong> ofrecen &#34;la primera inteligencia artificial desarrollada en Chile para potenciar bienestar y salud mental&#34;
+                    <a href="https://mypsi.cl/" class="citation-link text-purple-600 hover:underline" target="_blank">[359]</a>.
+                    Sin embargo, la evaluación de su efectividad y seguridad permanece en etapas incipientes.
+                  </p>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-orange-800 mb-2">Advertencia Profesional</h4>
+                  <p class="text-orange-700 text-sm">
+                    La <strong>profesora Paula Errázuriz, de la UC</strong>, observa incremento de pacientes que consultan a ChatGPT antes de acudir a terapia. <em>&#34;Puede hacernos sentir escuchados, pero en casos de angustia grave o riesgo vital, acudir a la IA constituye un peligro real&#34;</em>
+                    <a href="https://psicologia.uc.cl/se-puede-usar-la-inteligencia-artificial-como-terapia-psicologica/" class="citation-link text-orange-600 hover:underline" target="_blank">[357]</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+              <h3 class="font-serif text-xl font-bold mb-4 text-deep-blue">
+                <i class="fas fa-shield-alt mr-2 text-teal"></i>
+                Derecho a la Intimidad y Autonomía
+              </h3>
+              <div class="space-y-4 text-gray-700">
+                <p class="text-sm">
+                  La <strong>&#34;targetización psicológica&#34;</strong> —uso de huellas digitales para inferir aspectos íntimos de la psicología individual e influir en decisiones— fue tema central de la <strong>profesora Sandra Matz de Columbia Business School</strong>
+                  <a href="https://globalcenters.columbia.edu/news/business-school-professor-sandra-matz-explores-implications-psychological-targeting" class="citation-link text-teal hover:underline" target="_blank">[377]</a>.
+                </p>
+
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-red-800 mb-2">Reconocimiento Facial</h4>
+                  <p class="text-red-700 text-sm">
+                    La expansión de tecnologías de vigilancia algorítmica en espacios públicos chilenos enfrenta <strong>vacíos legales</strong> respecto a consentimiento informado, finalidad de uso y mecanismos de supervisión independiente.
+                  </p>
+                </div>
+
+                <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-600 text-sm">
+                  &#34;No es que estemos tratando de espiar la psicología de las personas, es que a menudo el objetivo es empujar a la gente en cierta dirección —ya sea qué comprar, cómo votar, etc.&#34;
+                  <footer class="text-xs text-gray-500 mt-1">
+                    — <strong>Prof. Sandra Matz</strong>, Columbia Business School
+                  </footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="bg-deep-blue text-white rounded-xl p-12 space-y-8">
+          <div class="text-center space-y-4">
+            <h2 class="font-serif text-4xl lg:text-5xl font-bold">
+              La Encrucijada Chilena
+            </h2>
+            <p class="text-xl text-blue-100 max-w-4xl mx-auto">
+              Soberanía, Inclusión y Humanidad en la Era de la Inteligencia Artificial
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <h3 class="font-serif text-2xl font-bold">Síntesis de los Cinco Módulos</h3>
+              <p class="text-blue-100 leading-relaxed">
+                La trayectoria recorrida revela una paradoja fundamental: la IA, tecnología creada para amplificar las capacidades humanas, plantea simultáneamente el riesgo de su atrofia. Desde los orígenes conceptuales en el Test de Turing hasta la explosión contemporánea de los modelos fundacionales, hemos presenciado la materialización de posibilidades que hace décadas parecían pertenecer al dominio de la ciencia ficción.
+              </p>
+
+              <div class="space-y-3">
+                <div class="flex items-start">
+                  <i class="fas fa-microscope text-teal mt-1 mr-3"></i>
+                  <div>
+                    <div class="font-semibold">Investigación y Desarrollo</div>
+                    <div class="text-blue-100 text-sm">Chile ha pasado de ser receptor pasivo a actor activo con la creación de CENIA y Latam-GPT</div>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-briefcase text-teal mt-1 mr-3"></i>
+                  <div>
+                    <div class="font-semibold">Impacto Laboral</div>
+                    <div class="text-blue-100 text-sm">4,7 millones de trabajadores con potencial de aceleración, pero 49% de empresas reportan desplazamiento</div>
+                  </div>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-heartbeat text-teal mt-1 mr-3"></i>
+                  <div>
+                    <div class="font-semibold">Transformación Sanitaria</div>
+                    <div class="text-blue-100 text-sm">65-75% de tareas administrativas acelerables, pero desafíos éticos y de equidad pendientes</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <h3 class="font-serif text-2xl font-bold">Principios para el Futuro</h3>
+
+              <blockquote class="border-l-4 border-teal pl-6 italic text-lg text-blue-100">
+                &#34;El mensaje es claro: aprovechar efectivamente la capacidad de la IA Generativa no se trata de reemplazar personas, sino de empoderarlas con estas herramientas cognitivas que contribuirán al futuro de Chile.&#34;
+                <footer class="text-sm text-blue-200 mt-2">
+                  — Centro Nacional de Inteligencia Artificial (CENIA) y Stanford University
+                  <a href="https://impact.stanford.edu/article/deep-dive-impact-generative-ai-work-chile" class="citation-link text-teal hover:underline" target="_blank">[147]</a>
+                </footer>
+              </blockquote>
+
+              <div class="space-y-4">
+                <div class="bg-white/10 rounded-lg p-4">
+                  <h4 class="font-semibold mb-2">
+                    <i class="fas fa-globe-americas mr-2"></i>
+                    Soberanía Tecnológica
+                  </h4>
+                  <p class="text-blue-100 text-sm">
+                    El desarrollo de Latam-GPT representa un paso fundamental hacia la soberanía tecnológica, pero requiere inversión sostenida en investigación, infraestructura y talento.
+                  </p>
+                </div>
+
+                <div class="bg-white/10 rounded-lg p-4">
+                  <h4 class="font-semibold mb-2">
+                    <i class="fas fa-users mr-2"></i>
+                    Inclusión y Equidad
+                  </h4>
+                  <p class="text-blue-100 text-sm">
+                    La transformación tecnológica debe ser acompañada por políticas explícitas para evitar la amplificación de desigualdades y garantizar acceso democrático a los beneficios de la IA.
+                  </p>
+                </div>
+
+                <div class="bg-white/10 rounded-lg p-4">
+                  <h4 class="font-semibold mb-2">
+                    <i class="fas fa-heart mr-2"></i>
+                    Humanidad y Autonomía
+                  </h4>
+                  <p class="text-blue-100 text-sm">
+                    La preservación de la capacidad humana para el juicio crítico, la creatividad y la empatía debe ser el norte de la integración tecnológica en la sociedad.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-teal/20 rounded-lg p-6">
+                <h4 class="font-bold text-lg mb-3">La Encrucijada</h4>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                  Chile se encuentra en una posición privilegiada para liderar la integración responsable de la IA en América Latina. La convergencia entre tradición académica sólida, voluntad política y conciencia ciudadana crítica configura un escenario propicio para construir un modelo de desarrollo tecnológico que preserve y potencie lo distintivamente humano mientras aprovecha las oportunidades de la inteligencia artificial.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+          <p class="text-gray-400 mb-4">
+            Relatoría Académica preparada para audiencia heterogénea en Chile
+          </p>
+          <p class="text-sm text-gray-500">
+            Fundamentada en investigación empírica, instituciones académicas reconocidas y datos específicos del contexto chileno y latinoamericano.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#0d9488',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#0d9488',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#ffffff',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondaryBkg: '#f9fafb',
+                tertiaryBkg: '#f3f4f6',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            timeline: {
+                useMaxWidth: false,
+                padding: 20
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize the controls on page load
+        initializeMermaidControls();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all TOC links
+                    document.querySelectorAll('.toc-fixed a').forEach(link => {
+                        link.classList.remove('bg-teal', 'text-white');
+                        link.classList.add('text-gray-700');
+                    });
+                    
+                    // Add active class to current section link
+                    const activeLink = document.querySelector(`.toc-fixed a[href="#${entry.target.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('bg-teal', 'text-white');
+                        activeLink.classList.remove('text-gray-700');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section[id]').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+  
+
+</body></html>
